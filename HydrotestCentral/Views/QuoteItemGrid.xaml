@@ -1,0 +1,23 @@
+﻿<UserControl x:Class="HydrotestCentral.QuoteItemGrid"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:HydrotestCentral"
+             mc:Ignorable="d">
+    <DataGrid x:Name="QItems" ItemsSource="{Binding}" Margin="20" AutoGenerateColumns="False" CanUserAddRows="True" VerticalAlignment="Stretch" HorizontalAlignment="Stretch" IsManipulationEnabled="True" GridLinesVisibility="All" FontFamily="Verdana" AreRowDetailsFrozen="True" SelectionMode="Single" ColumnWidth="150">
+        <DataGrid.Columns>
+            <DataGridTextColumn Header="qty" Binding="{Binding qty, UpdateSourceTrigger=PropertyChanged}"/>
+            <DataGridTextColumn Header="item" Binding="{Binding item, UpdateSourceTrigger=PropertyChanged}"/>
+            <DataGridTextColumn Header="rate" Binding="{Binding rate, UpdateSourceTrigger=PropertyChanged}"/>
+            <DataGridTextColumn Header="descr" Binding="{Binding descr, UpdateSourceTrigger=PropertyChanged}"/>
+            <DataGridTextColumn Header="group" Binding="{Binding group, UpdateSourceTrigger=PropertyChanged}"/>
+            <DataGridCheckBoxColumn Header="taxable" Binding="{Binding taxable, UpdateSourceTrigger=PropertyChanged}"/>
+            <DataGridCheckBoxColumn Header="discountable" Binding="{Binding discountable, UpdateSourceTrigger=PropertyChanged}"/>
+            <DataGridCheckBoxColumn Header="printable" Binding="{Binding printable, UpdateSourceTrigger=PropertyChanged}"/>
+            <DataGridTextColumn Header="jobno" Binding="{Binding jobno}" Visibility="Hidden"/>
+            <DataGridTextColumn Header="line_total" Binding="{Binding line_total}"/>
+            <DataGridTextColumn Header="tax_total" Binding="{Binding tax_total}"/>
+        </DataGrid.Columns>
+    </DataGrid>
+</UserControl>

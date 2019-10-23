@@ -26,7 +26,7 @@ namespace HydrotestCentral
             var metadata = new FrameworkPropertyMetadata(OnWordAutoCompleteSourceChanged);
             WordAutoCompleteSourceProperty = DependencyProperty.RegisterAttached("WordAutoCompleteSource", typeof(IEnumerable), typeof(TextBoxAutoComplete), metadata);
 
-            metadata = new FrameworkPropertyMetadata(",;");
+            metadata = new FrameworkPropertyMetadata("");
             WordAutoCompleteSeparatorsProperty = DependencyProperty.RegisterAttached("WordAutoCompleteSeparators", typeof(string), typeof(TextBoxAutoComplete), metadata);
 
             metadata = new FrameworkPropertyMetadata(OnWordAutoCompletePopupChanged);
@@ -96,7 +96,8 @@ namespace HydrotestCentral
                 textBox.SelectionChanged += new RoutedEventHandler(TextBox_SelectionChanged);
                 textBox.TextChanged += new TextChangedEventHandler(TextBox_TextChanged);
 
-                Selector wordsHost = (Selector)popup.FindName("PART_WordsHost");
+                string name = "WordsHost_" + textBox.Name;
+                Selector wordsHost = (Selector)popup.FindName(name);
                 if (wordsHost == null)
                     throw new InvalidOperationException("Can't find the PART_WordsHost element in the auto-complete popup control.");
                 wordsHost.IsSynchronizedWithCurrentItem = true;
@@ -224,9 +225,18 @@ namespace HydrotestCentral
                                 completedText += text.Substring(0, previousSeparatorOffset + 1);
                             completedText += selection;
                             if (nextSeparatorOffset < text.Length)
+                            {
                                 completedText += text.Substring(nextSeparatorOffset, text.Length - nextSeparatorOffset);
+                            }
                             else
-                                completedText += separators[0];
+                            {
+                                if (separators.Length > 0)
+                                {
+                                    completedText += separators[0];
+                                }
+                            }
+
+                                
 
                             textBox.Text = completedText;
                             textBox.CaretIndex = textBox.Text.Length;
