@@ -128,7 +128,7 @@
     <Compile Include="Controls\TextBoxAutoComplete.cs" />
     <Compile Include="Infrastructure\NotificationClass.cs" />
     <Compile Include="Infrastructure\RelayCommand.cs" />
-    <Compile Include="Models\DataProviders.cs" />
+    <Compile Include="Models\Model.cs" />
     <Compile Include="ViewModels\MainWindowViewModel.cs" />
     <Compile Include="ViewModels\MainWindowViewModel.Designer.cs">
       <DependentUpon>MainWindowViewModel.cs</DependentUpon>

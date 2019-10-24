@@ -16,6 +16,7 @@ using System.Data.SQLite;
 using System.Collections.ObjectModel;
 using System.Windows.Controls.Primitives;
 using System.ComponentModel;
+using HydrotestCentral.ViewModels;
 
 namespace HydrotestCentral
 {
@@ -27,16 +28,19 @@ namespace HydrotestCentral
         public SQLiteConnection connection;
         public SQLiteDataAdapter dataAdapter;
         public string item_placeholder;
-        public QuoteItemsDataProvider quote_items;
+        //public QuoteItemsDataProvider quote_items;
         public static string jobno;
         public static int tab_index;
+        public MainWindowViewModel other_vm;
 
-        #region ViewModel
-        // TODO: Move this to a viewmodel
+        public QuoteItemGrid(MainWindowViewModel vm)
+        {
+            InitializeComponent();
 
-        public ObservableCollection<Item> Items { get; set; }
-        #endregion
+            other_vm = vm;
+        }
 
+        /*
         public QuoteItemGrid(QuoteItemsDataProvider quote_items_in, string jobno_in, int tab_index_in)
         {
             InitializeComponent();
@@ -46,9 +50,10 @@ namespace HydrotestCentral
 
             Items = new ObservableCollection<Item>();
         }
-
+        */
         private void initializeItems()
         {
+            /*
             using (connection = new SQLiteConnection("DataSource=C:\\Users\\SFWMD\\Aqua-Tech Hydro Services\\IT - Documents\\7.8 Databases\\CentralDB.db"))
             {
                 connection.Open();
@@ -65,14 +70,17 @@ namespace HydrotestCentral
 
                             Item newItem = new Item(reader.GetString(0), reader.GetString(1), 0.0);
                             Console.WriteLine("Item: " + newItem.Itemname + "| " + newItem.Descr + " | " + newItem.Rate);
-                            Items.Add(newItem);
+                            //Items.Add(newItem);
                         }
                     }
                 }
                 connection.Close();
-            }
+            }*/
 
-            Console.WriteLine(Items.Count.ToString() + " items loaded...");
+            //Console.WriteLine(Items.Count.ToString() + " items loaded...");
+
+
+
         }
 
         private void UpdateQuoteItemGrid()
@@ -114,6 +122,7 @@ namespace HydrotestCentral
             }
         }
 
+        /*
         private void ItemComboBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
             // ... Get the ComboBox.
@@ -152,17 +161,17 @@ namespace HydrotestCentral
 
         private void ItemComboBox_DropDownClosed(object sender, EventArgs e)
         {
-            /*
+            
             var comboBox = sender as ComboBox;
             Console.WriteLine("item_placeholder: " + item_placeholder);
             comboBox.Text = item_placeholder;
             Console.WriteLine("comboBox.text: " + comboBox.Text.ToString());
-            */
+            
 
             //txtBlock_item.Text = item_placeholder;
             //this.QItems.SetValue(this., item_placeholder);
         }
-
+    
         private void QuoteItemGridControl_Loaded(object sender, RoutedEventArgs e)
         {
             initializeItems();
@@ -215,7 +224,7 @@ namespace HydrotestCentral
             }
             return child;
         }
-
+    */
 
     }
 

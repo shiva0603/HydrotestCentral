@@ -8,8 +8,58 @@ using System.Data.SQLite;
 using System.ComponentModel;
 //using HydrotestCentral.DatasetTableAdapters;
 
-namespace HydrotestCentral
+namespace HydrotestCentral.Model
 {
+    // Data object classes
+    public class QuoteHeader
+    {
+        public string quoteno { get; set; }
+        public string jobno { get; set; }
+        public string qt_date { get; set; }
+        public string cust { get; set; }
+        public string cust_contact { get; set; }
+        public string cust_phone { get; set; }
+        public string cust_email { get; set; }
+        public string loc { get; set; }
+        public string salesman { get; set; }
+        public int days_est { get; set; }
+        public string status { get; set; }
+        public string jobtype { get; set; }
+        public string pipe_line_size { get; set; }
+        public string pipe_length { get; set; }
+        public string pressure { get; set; }
+        public string endclient { get; set; }
+        public string supervisor { get; set; }
+        public string est_startdate { get; set; }
+        public string est_enddate { get; set; }
+        public double value { get; set; }
+    }
+
+    public class QuoteItem
+    {
+        public int qty { get; set; }
+        public string item { get; set; }
+        public double rate { get; set; }
+        public string descr { get; set; }
+        public int group { get; set; }
+        public bool taxable { get; set; }
+        public bool discountable { get; set; }
+        public bool printable { get; set; }
+        public string jobno { get; set; }
+        public string quoteno { get; set; }
+        public double line_total { get; set; }
+        public double tax_total { get; set; }
+        public int tab_index { get; set; }
+        public int row_index { get; set; }
+    }
+
+    public class InventoryItem
+    {
+        public string item { get; set; }
+        public string descr { get; set; }
+        public double rate { get; set; }
+    }
+
     // A Source of Quote Header Data from SQLite Database
     public class QuoteHeaderDataProvider
     {
@@ -244,62 +294,4 @@ namespace HydrotestCentral
         }
     }
 
-    // Data objects
-    public class QuoteHeader
-    {
-        public string QuoteNo { get; set; }
-        public string JobNo { get; set; }
-        public string Qt_date { get; set; }
-        public string Cust { get; set; }
-        public string Cust_phone { get; set; }
-        public string Cust_email { get; set; }
-        public string Loc { get; set; }
-        public string Salesman { get; set; }
-        public int Days_est { get; set; }
-        public string Status { get; set; }
-        public string Jobtype { get; set; }
-        public string Pipe_size { get; set; }
-        public string Pipe_length { get; set; }
-        public string Pressure { get; set; }
-        public string Endclient { get; set; }
-        public string Supervisor { get; set; }
-        public string Est_startdate { get; set; }
-        public string Est_enddate { get; set; }
-        public double Value { get; set; }
-    }
-
-    public class QuoteItem
-    {
-        public int Qty { get; set; }
-        public string Item { get; set; }
-        public double Rate { get; set; }
-        public string Descr { get; set; }
-        public int Group { get; set; }
-        public bool Taxable { get; set; }
-        public bool Discountable { get; set; }
-        public bool Printable { get; set; }
-        public string Jobno { get; set; }
-        public string Quoteno { get; set; }
-        public double Line_total { get; set; }
-        public double Tax_total { get; set; }
-        public int Tab_index { get; set; }
-        public int Row_index { get; set; }
-    }
-
-    /*
-// Interface to access Quote Data Objects
-public interface IQuoteDataAccessLayer
-{
-    // Return all persistent quotes
-    List<QuoteHeaderObject> GetQuotes();
-
-    // Updates or adds the given quote
-    void UpdateQuoteHeader(QuoteHeaderObject quote);
-
-    // Delete the given quote
-    void DeleteQuote(QuoteHeaderObject quote);
-
-    void UpdateQuoteItem(QuoteItemObject quoteItem);
-}
-*/
 }

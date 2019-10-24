@@ -17,6 +17,7 @@ using System.Data;
 using System.Data.SQLite;
 using Excel = Microsoft.Office.Interop.Excel;
 using System.IO;
+using HydrotestCentral.ViewModels;
 
 namespace HydrotestCentral
 {
@@ -31,18 +32,24 @@ namespace HydrotestCentral
         public SQLiteCommandBuilder head_builder, items_builder;
         public string jobno, cust;
         public double proj_daily_total, proj_addn_chg, proj_job_total, est_days;
-        public QuoteHeaderDataProvider quote_heads;
-        public QuoteItemsDataProvider quote_items;
+        //public QuoteHeaderDataProvider quote_heads;
+        //public QuoteItemsDataProvider quote_items;
         private List<TabItem> _tabItems;
         private List<string> _tabNames;
         private TabItem _tabAdd;
+
+        public MainWindowViewModel main_vm;
 
         public MainWindow()
         {
             InitializeComponent();
 
-            quote_heads = new QuoteHeaderDataProvider();
-            quote_items = new QuoteItemsDataProvider();
+            // Set the ViewModel
+            main_vm = new MainWindowViewModel();
+            base.DataContext = main_vm;
+
+            //quote_heads = main_vm.quote_headers;
+            //quote_items = new QuoteItemsDataProvider();
 
             // initialize tabItem array
             _tabItems = new List<TabItem>();
@@ -105,14 +112,14 @@ namespace HydrotestCentral
         private void QHeader_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
             // Get selected Row
-            DataRowView row = (DataRowView) QHeader.SelectedItem;
-            //MessageBox.Show(row.Row["jobno"].ToString());
+              //DataRowView row = (DataRowView) QHeader.SelectedItem;
+              //MessageBox.Show(row.Row["jobno"].ToString());
 
             // Get selected Row cell base on which the datagrid will be changed
             try
             {
-                this.jobno = row.Row["jobno"].ToString();
-                this.cust = row.Row["cust"].ToString();
+                //this.jobno = row.Row["jobno"].ToString();
+                //this.cust = row.Row["cust"].ToString();
                 //this.est_days = Convert.ToDouble(row.Row["days_est"].ToString());
             }
             catch (Exception ex)
@@ -164,7 +171,7 @@ namespace HydrotestCentral
             }
             QHeader.ItemsSource = head_dt.DefaultView;
             */
-            QHeader.ItemsSource = quote_heads.getQuoteHeaders();
+            QHeader.ItemsSource = main_vm.quote_headers;
         }
 
         public void GetQuoteItemsData(string jobno)
@@ -201,16 +208,17 @@ namespace HydrotestCentral
 
             //QItems.ItemsSource = quote_items.getQuoteItemsByJob(this.jobno);
 
-
             // Update the Projected Daily Total
-            this.proj_daily_total = quote_items.getSumOfLineTotals(this.jobno);
+            //this.proj_daily_total = quote_items.getSumOfLineTotals(this.jobno);
 
             UpdateCurrentQuoteDashboard();
         }
 
         public int GetNumberOfTabIndex(string jobno)
         {
-            return quote_items.getCountOfTabItems(jobno);
+            //return quote_items.getCountOfTabItems(jobno);
+
+            return 3;
         }
 
         public void UpdateCurrentQuoteDashboard()
@@ -230,10 +238,12 @@ namespace HydrotestCentral
 
         public void getTabItemGrid(TabItem tab, int tab_index)
         {
-            QuoteItemGrid grid = new QuoteItemGrid(quote_items, this.jobno, tab_index);
-            grid.DataContext = this.FindResource("QuoteItems").ToString();
-            quote_items.UpdateLineTotals();
-            grid.QItems.ItemsSource = quote_items.getQuoteItemsByJob_and_Tab(this.jobno, tab_index);
+            //QuoteItemGrid grid = new QuoteItemGrid(quote_items, this.jobno, tab_index);
+            QuoteItemGrid grid = new QuoteItemGrid(main_vm);
+
+            //grid.DataContext = this.FindResource("QuoteItems").ToString();
+            //quote_items.UpdateLineTotals();
+            //grid.QItems.ItemsSource = quote_items.getQuoteItemsByJob_and_Tab(this.jobno, tab_index);
 
             tab.Content = grid;
         }
@@ -325,9 +335,9 @@ namespace HydrotestCentral
 
             try
             {
-                quote_items.UpdateLineTotals();
-                quote_items.saveItemsToDB();
-                UpdateCurrentQuoteDashboard();
+                //quote_items.UpdateLineTotals();
+                //quote_items.saveItemsToDB();
+                //UpdateCurrentQuoteDashboard();
             }
             catch (Exception Ex)
             {
@@ -356,7 +366,8 @@ namespace HydrotestCentral
             int days_count = 0;
             int sheet_count = 0;
 
-            dt = quote_heads.getQuoteHeaderTableByJob(jobno);
+            //dt = quote_heads.getQuoteHeaderTableByJob(jobno);
+            dt = new DataTable();
 
             Console.WriteLine(dt.Rows[0]["jobno"].ToString() + " DataTable Created...");
 

@@ -14,14 +14,14 @@
                 <ResourceDictionary Source="pack://application:,,,/MahApps.Metro;component/Styles/Accents/Teal.xaml" />
                 <ResourceDictionary Source="pack://application:,,,/MahApps.Metro;component/Styles/Accents/BaseLight.xaml" />
             </ResourceDictionary.MergedDictionaries>
-            <!--create an instance of QuoteHeaderDataProvider class -->
+            <!--create an instance of QuoteHeaderDataProvider class --><!--
             <ObjectDataProvider x:Key="QuoteHeaderDataProvider" ObjectType="{x:Type local:QuoteHeaderDataProvider}"/>
-            <!--Define the method which is invoked to obtain our data -->
+            --><!--Define the method which is invoked to obtain our data --><!--
             <ObjectDataProvider x:Key="QuoteHeaders" ObjectInstance="{StaticResource QuoteHeaderDataProvider}"/>
-            <!--create an instance of QuoteItemsDataProvider class -->
+            --><!--create an instance of QuoteItemsDataProvider class --><!--
             <ObjectDataProvider x:Key="QuoteItemsDataProvider" ObjectType="{x:Type local:QuoteItemsDataProvider}"/>
-            <!--Define the method which is invoked to obtain our data -->
-            <ObjectDataProvider x:Key="QuoteItems" ObjectInstance="{StaticResource QuoteItemsDataProvider}"/>
+            --><!--Define the method which is invoked to obtain our data --><!--
+            <ObjectDataProvider x:Key="QuoteItems" ObjectInstance="{StaticResource QuoteItemsDataProvider}"/>-->
             <Style TargetType="{x:Type ComboBoxItem}">
                 <Setter Property="HorizontalContentAlignment" Value="Left" />
                 <Setter Property="VerticalContentAlignment" Value="Top" />

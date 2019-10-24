@@ -6,22 +6,10 @@
              xmlns:local="clr-namespace:HydrotestCentral"
              xmlns:mah="http://metro.mahapps.com/winfx/xaml/controls" x:Class="HydrotestCentral.QuoteItemGrid"
              x:Name="QuoteItemGridControl"
-             mc:Ignorable="d" Loaded="QuoteItemGridControl_Loaded">
-    <DataGrid x:Name="QItems" DataContext="{Binding Source={StaticResource QuoteItems}}" ItemsSource="{Binding}" Margin="20" AutoGenerateColumns="False" VerticalAlignment="Stretch" HorizontalAlignment="Stretch" IsManipulationEnabled="True" GridLinesVisibility="All" FontFamily="Verdana" SelectionMode="Single" ColumnWidth="150" CellEditEnding="QItems_CellEditEnding" IsSynchronizedWithCurrentItem="True" RowEditEnding="QItems_RowEditEnding" ClipboardCopyMode="IncludeHeader" IsTabStop="True">
+             mc:Ignorable="d">
+    <DataGrid x:Name="QItems" ItemsSource="{Binding quote_items}" Margin="20" VerticalAlignment="Stretch" HorizontalAlignment="Stretch" IsManipulationEnabled="True" GridLinesVisibility="All" FontFamily="Verdana" SelectionMode="Single" ColumnWidth="150" ClipboardCopyMode="IncludeHeader" IsTabStop="True">
         <DataGrid.Columns>
             <DataGridTextColumn Header="qty" Binding="{Binding qty, UpdateSourceTrigger=PropertyChanged}"/>
-            <!--<DataGridTemplateColumn  Header="item">
-                <DataGridTemplateColumn.CellTemplate>
-                    <DataTemplate>
-                        <TextBlock x:Name="txtBlock_item" Text="{Binding item, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
-                    </DataTemplate>
-                </DataGridTemplateColumn.CellTemplate>
-                <DataGridTemplateColumn.CellEditingTemplate>
-                    <DataTemplate>
-                        <ComboBox x:Name="ItemComboBox" Height="20" IsEditable="True" DataContext="{Binding ElementName=QuoteItemGridControl}" ItemsSource="{Binding Items}" SelectionChanged="ItemComboBox_SelectionChanged"/>
-                    </DataTemplate>
-                </DataGridTemplateColumn.CellEditingTemplate>
-            </DataGridTemplateColumn>-->
             <!--<local:DataGridComboBoxColumnWithBindingHack Header="Item" SelectedValueBinding="{Binding Items}" SelectedValuePath="Itemname" ItemsSource="{Binding Items}"/>-->
             <DataGridTextColumn Header="item" Binding="{Binding item, UpdateSourceTrigger=PropertyChanged}"/>
             <DataGridTextColumn Header="rate" Binding="{Binding rate, UpdateSourceTrigger=PropertyChanged}"/>
