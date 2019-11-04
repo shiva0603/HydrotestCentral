@@ -18,6 +18,7 @@ using System.Data.SQLite;
 using Excel = Microsoft.Office.Interop.Excel;
 using System.IO;
 using HydrotestCentral.ViewModels;
+using HydrotestCentral.Model;
 
 namespace HydrotestCentral
 {
@@ -38,7 +39,7 @@ namespace HydrotestCentral
         private List<string> _tabNames;
         private TabItem _tabAdd;
 
-        public MainWindowViewModel main_vm;
+        public static MainWindowViewModel main_vm;
 
         public MainWindow()
         {
@@ -46,7 +47,9 @@ namespace HydrotestCentral
 
             // Set the ViewModel
             main_vm = new MainWindowViewModel();
-            base.DataContext = main_vm;
+            DataContext = main_vm;
+            GetQuoteHeaderData();
+            GetQuoteItemsData(this.jobno);
 
             //quote_heads = main_vm.quote_headers;
             //quote_items = new QuoteItemsDataProvider();
@@ -112,15 +115,17 @@ namespace HydrotestCentral
         private void QHeader_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
             // Get selected Row
-              //DataRowView row = (DataRowView) QHeader.SelectedItem;
-              //MessageBox.Show(row.Row["jobno"].ToString());
+            //DataRowView row = (DataRowView) QHeader.SelectedItem;
+            //MessageBox.Show(row.Row["jobno"].ToString());
+            QuoteHeader temp = (QuoteHeader)QHeader.SelectedItem;
+            //MessageBox.Show("QHeader Selection Changed...JobNo now: " + temp.jobno);
 
             // Get selected Row cell base on which the datagrid will be changed
             try
             {
-                //this.jobno = row.Row["jobno"].ToString();
-                //this.cust = row.Row["cust"].ToString();
-                //this.est_days = Convert.ToDouble(row.Row["days_est"].ToString());
+                this.jobno = temp.jobno;
+                this.cust = temp.cust;
+                this.est_days = temp.days_est;
             }
             catch (Exception ex)
             {
@@ -136,7 +141,11 @@ namespace HydrotestCentral
             else
             {
                 //Change QItems based on Row
-                GetQuoteItemsData(this.jobno);
+                // OUTDATED ---GetQuoteItemsData(this.jobno);
+                main_vm.updateQuoteItemsByJob(this.jobno);
+
+                // Update tab child
+                MessageBox.Show(this.tabDynamic.GetChildObjects().ToString());
             }
         }
 
@@ -243,7 +252,10 @@ namespace HydrotestCentral
 
             //grid.DataContext = this.FindResource("QuoteItems").ToString();
             //quote_items.UpdateLineTotals();
-            //grid.QItems.ItemsSource = quote_items.getQuoteItemsByJob_and_Tab(this.jobno, tab_index);
+            
+            //MessageBox.Show("Getting Tab Index: " + TabIndex);
+            main_vm.updateQuoteItemsByJob_And_Tab(jobno, tab_index);
+            grid.QItems.ItemsSource = main_vm.quote_items;
 
             tab.Content = grid;
         }
@@ -281,6 +293,7 @@ namespace HydrotestCentral
                 }
                 else
                 {
+                    //MessageBox.Show("Selected Tab Index: " + tabDynamic.SelectedIndex.ToString());
                     getTabItemGrid(tab, tabDynamic.SelectedIndex);
                 }
             }

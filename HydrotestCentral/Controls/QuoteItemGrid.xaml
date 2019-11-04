@@ -7,20 +7,20 @@
              xmlns:mah="http://metro.mahapps.com/winfx/xaml/controls" x:Class="HydrotestCentral.QuoteItemGrid"
              x:Name="QuoteItemGridControl"
              mc:Ignorable="d">
-    <DataGrid x:Name="QItems" ItemsSource="{Binding quote_items}" Margin="20" VerticalAlignment="Stretch" HorizontalAlignment="Stretch" IsManipulationEnabled="True" GridLinesVisibility="All" FontFamily="Verdana" SelectionMode="Single" ColumnWidth="150" ClipboardCopyMode="IncludeHeader" IsTabStop="True">
+    <DataGrid x:Name="QItems" ItemsSource="{Binding quote_items}" Margin="20" VerticalAlignment="Stretch" HorizontalAlignment="Stretch" IsManipulationEnabled="True" GridLinesVisibility="All" FontFamily="Verdana" SelectionMode="Single" ColumnWidth="150" ClipboardCopyMode="IncludeHeader" AutoGenerateColumns="False">
         <DataGrid.Columns>
-            <DataGridTextColumn Header="qty" Binding="{Binding qty, UpdateSourceTrigger=PropertyChanged}"/>
+            <DataGridTextColumn Header="qty" Binding="{Binding Path=qty}"/>
             <!--<local:DataGridComboBoxColumnWithBindingHack Header="Item" SelectedValueBinding="{Binding Items}" SelectedValuePath="Itemname" ItemsSource="{Binding Items}"/>-->
-            <DataGridTextColumn Header="item" Binding="{Binding item, UpdateSourceTrigger=PropertyChanged}"/>
-            <DataGridTextColumn Header="rate" Binding="{Binding rate, UpdateSourceTrigger=PropertyChanged}"/>
-            <DataGridTextColumn Header="descr" Binding="{Binding descr, UpdateSourceTrigger=PropertyChanged}"/>
-            <DataGridTextColumn Header="group" Binding="{Binding group, UpdateSourceTrigger=PropertyChanged}"/>
-            <DataGridCheckBoxColumn Header="taxable" Binding="{Binding taxable, UpdateSourceTrigger=PropertyChanged}"/>
-            <DataGridCheckBoxColumn Header="discountable" Binding="{Binding discountable, UpdateSourceTrigger=PropertyChanged}"/>
-            <DataGridCheckBoxColumn Header="printable" Binding="{Binding printable, UpdateSourceTrigger=PropertyChanged}"/>
-            <DataGridTextColumn Header="jobno" Binding="{Binding jobno}" Visibility="Hidden"/>
-            <DataGridTextColumn Header="line_total" Binding="{Binding line_total}"/>
-            <DataGridTextColumn Header="tax_total" Binding="{Binding tax_total}"/>
+            <DataGridTextColumn Header="item" Binding="{Binding Path=item, UpdateSourceTrigger=PropertyChanged}"/>
+            <DataGridTextColumn Header="rate" Binding="{Binding Path=rate, UpdateSourceTrigger=PropertyChanged}"/>
+            <DataGridTextColumn Header="descr" Binding="{Binding Path=descr, UpdateSourceTrigger=PropertyChanged}"/>
+            <DataGridTextColumn Header="group" Binding="{Binding Path=group, UpdateSourceTrigger=PropertyChanged}"/>
+            <DataGridCheckBoxColumn Header="taxable" Binding="{Binding Path=taxable, UpdateSourceTrigger=PropertyChanged}"/>
+            <DataGridCheckBoxColumn Header="discountable" Binding="{Binding Path=discountable, UpdateSourceTrigger=PropertyChanged}"/>
+            <DataGridCheckBoxColumn Header="printable" Binding="{Binding Path=printable, UpdateSourceTrigger=PropertyChanged}"/>
+            <DataGridTextColumn Header="jobno" Binding="{Binding Path=jobno}" Visibility="Hidden"/>
+            <DataGridTextColumn Header="tax_total" Binding="{Binding Path=tax_total}"/>
+            <DataGridTextColumn Header="line_total" Binding="{Binding Path=line_total}" FontSize="14" FontWeight="SemiBold" Width="200"/>
         </DataGrid.Columns>
     </DataGrid>
 </UserControl>

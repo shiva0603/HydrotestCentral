@@ -17,29 +17,34 @@ namespace HydrotestCentral.ViewModels
 {
     public partial class MainWindowViewModel: INotifyPropertyChanged
     {
-        static string connectionString = @"DataSource=C:\\Users\\SFWMD\\Aqua-Tech Hydro Services\\IT - Documents\\7.8 Databases\\CentralDB.db";
+        static string connectionString = Properties.Settings.Default.connString;
         SQLiteConnection connection;
         SQLiteCommand cmd;
         SQLiteDataAdapter adapter;
         DataSet ds;
 
-        public ObservableCollection<QuoteHeader> quote_headers;
-        public ObservableCollection<QuoteItem> quote_items;
-        public ObservableCollection<InventoryItem> inventory_items;
+        public ObservableCollection<QuoteHeader> quote_headers { get; set; }
+        public ObservableCollection<QuoteItem> quote_items { get; set; }
+        public ObservableCollection<InventoryItem> inventory_items { get; set; }
+
 
         public MainWindowViewModel()
         {
             InitializeComponent();
 
-            LoadQuoteHeaderData();
-            LoadQuoteItemData();
+            quote_headers = new ObservableCollection<QuoteHeader>();
+            quote_headers = LoadQuoteHeaderData();
+            quote_items = new ObservableCollection<QuoteItem>();
+            quote_items = LoadQuoteItemData();
         }
 
-        public void LoadQuoteHeaderData()
+        public ObservableCollection<QuoteHeader> LoadQuoteHeaderData()
         {
+            var headers = new ObservableCollection<QuoteHeader>();
+
             try
             {
-                connection = new SQLiteConnection(connectionString);
+                connection = new SQLiteConnection(@"DataSource=C:\\Users\\SFWMD\\Aqua-Tech Hydro Services\\IT - Documents\\7.8 Databases\\CentralDB.db");
                 connection.Open();
                 cmd = connection.CreateCommand();
                 cmd.CommandText = string.Format("SELECT * FROM QTE_HDR");
@@ -49,21 +54,18 @@ namespace HydrotestCentral.ViewModels
 
                 adapter.Fill(ds, "QTE_HDR");
 
-                if (quote_headers == null)
+
+                foreach (DataRow dr in ds.Tables[0].Rows)
                 {
-                    quote_headers = new ObservableCollection<QuoteHeader>();
+                    int cleaned_days = 0;
+                    double cleaned_value = 0.00;
 
-                    foreach (DataRow dr in ds.Tables[0].Rows)
+                    if (Int32.TryParse(dr[8].ToString(), out cleaned_days)) { }
+
+                    if (Double.TryParse(dr[17].ToString(), out cleaned_value)) { }
+
+                    headers.Add(new QuoteHeader
                     {
-                        int cleaned_days = 0;
-                        double cleaned_value = 0.00;
-
-                        if (Int32.TryParse(dr[8].ToString(), out cleaned_days)) { }
-
-                        if (Double.TryParse(dr[17].ToString(), out cleaned_value)) { }
-
-                        quote_headers.Add(new QuoteHeader
-                        {
                             quoteno = dr[0].ToString(),
                             jobno = dr[0].ToString(),
                             qt_date = dr[1].ToString(),
@@ -83,9 +85,8 @@ namespace HydrotestCentral.ViewModels
                             est_startdate = dr[15].ToString(),
                             est_enddate = dr[16].ToString(),
                             value = cleaned_value
-                        });
-                        Console.WriteLine(dr[0].ToString() + " created in quote_headers");
-                    }
+                    });
+                     Console.WriteLine(dr[0].ToString() + " created in quote_headers");
                 }
             }
             catch (Exception ex)
@@ -99,10 +100,14 @@ namespace HydrotestCentral.ViewModels
                 connection.Close();
                 connection.Dispose();
             }
+
+            return headers;
         }
 
-        public void LoadQuoteItemData()
+        public ObservableCollection<QuoteItem> LoadQuoteItemData()
         {
+            var items = new ObservableCollection<QuoteItem>();
+
             try
             {
                 connection = new SQLiteConnection(connectionString);
@@ -115,9 +120,6 @@ namespace HydrotestCentral.ViewModels
 
                 adapter.Fill(ds, "QTE_ITEM");
 
-                if (quote_items == null)
-                {
-                    quote_items = new ObservableCollection<QuoteItem>();
 
                     foreach (DataRow dr in ds.Tables[0].Rows)
                     {
@@ -143,7 +145,7 @@ namespace HydrotestCentral.ViewModels
                         if (Int32.TryParse(dr[11].ToString(), out cleaned_tab_index)) { }
                         if (Int32.TryParse(dr[12].ToString(), out cleaned_row_index)) { }
 
-                        quote_items.Add(new QuoteItem
+                        items.Add(new QuoteItem
                         {
                             qty = cleaned_qty,
                             item = dr[1].ToString(),
@@ -159,9 +161,9 @@ namespace HydrotestCentral.ViewModels
                             tab_index = cleaned_tab_index,
                             row_index = cleaned_row_index
                         });
-                        Console.WriteLine(dr[1].ToString() + " created in quote_items");
+                        //Console.WriteLine(dr[1].ToString() + " created in quote_items");
                     }
-                }
+                
             }
             catch (Exception ex)
             {
@@ -174,6 +176,47 @@ namespace HydrotestCentral.ViewModels
                 connection.Close();
                 connection.Dispose();
             }
+
+            return items;
+        }
+
+        public ObservableCollection<QuoteItem> getQuoteItems()
+        {
+            return quote_items;
+        }
+
+        public void updateQuoteItemsByJob(string jobno)
+        {
+            //MessageBox.Show("updateQuoteItemsByJob called...");
+            var start_collection = new ObservableCollection<QuoteItem>();
+            var new_collection = new ObservableCollection<QuoteItem>();
+            start_collection = LoadQuoteItemData();
+
+            IEnumerable<QuoteItem> items = start_collection.Where(c => c.jobno == jobno);
+            Console.WriteLine("Adding New Collection for Quote Items updated to only show Job: " + jobno);
+            foreach (QuoteItem i in items)
+            {
+                new_collection.Add(i);
+                Console.WriteLine("--->" + i.jobno + " | " + i.item);
+            }
+
+            quote_items = new_collection;
+        }
+
+        public void updateQuoteItemsByJob_And_Tab(string jobno, int tab_index)
+        {
+            var start_collection = new ObservableCollection<QuoteItem>();
+            var new_collection = new ObservableCollection<QuoteItem>();
+            start_collection = LoadQuoteItemData();
+
+            IEnumerable<QuoteItem> items = start_collection.Where(c => c.jobno == jobno && c.tab_index == tab_index);
+
+            foreach (QuoteItem i in items)
+            {
+                new_collection.Add(i);
+            }
+
+            quote_items = new_collection;
         }
 
         #region INotifyPropertyChanged Members

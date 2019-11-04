@@ -17,6 +17,7 @@ using System.Collections.ObjectModel;
 using System.Windows.Controls.Primitives;
 using System.ComponentModel;
 using HydrotestCentral.ViewModels;
+using HydrotestCentral.Model;
 
 namespace HydrotestCentral
 {
@@ -36,21 +37,28 @@ namespace HydrotestCentral
         public QuoteItemGrid(MainWindowViewModel vm)
         {
             InitializeComponent();
+            
+            //this.DataContext = vm;
+            this.QItems.ItemsSource = vm.quote_items;
 
-            other_vm = vm;
+            foreach(QuoteItem x in vm.quote_items)
+            {
+                Console.WriteLine(x.item.ToString() + " IN VM.QUOTE_ITEMS");
+            }
         }
 
-        /*
-        public QuoteItemGrid(QuoteItemsDataProvider quote_items_in, string jobno_in, int tab_index_in)
+        public QuoteItemGrid(string jobno_in, int tab_index_in)
         {
             InitializeComponent();
-            quote_items = quote_items_in;
+
             jobno = jobno_in;
             tab_index = tab_index_in;
-
-            Items = new ObservableCollection<Item>();
         }
-        */
+
+        public void RefreshGrid()
+        {
+            this.QItems.Items.Refresh();
+        }
         private void initializeItems()
         {
             /*
@@ -96,23 +104,6 @@ namespace HydrotestCentral
             try
             {
                 //
-                //quote_items.saveItemsToDB();
-                //UpdateCurrentQuoteDashboard();
-            }
-            catch (Exception Ex)
-            {
-                MessageBox.Show(Ex.ToString());
-            }
-        }
-
-        private void QItems_RowEditEnding(object sender, DataGridRowEditEndingEventArgs e)
-        {
-            //e.Row.Item.Text.ToString();
-            Console.WriteLine("ROW EDIT - Row: " + e.Row.GetIndex() + " edited\n");
-
-            try
-            {
-                //quote_items.UpdateLineTotals();
                 //quote_items.saveItemsToDB();
                 //UpdateCurrentQuoteDashboard();
             }
