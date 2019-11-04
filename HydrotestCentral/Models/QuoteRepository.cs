@@ -245,12 +245,42 @@ namespace HydrotestCentral.Models
 
         public void deleteRecord(QuoteHeader quoteRecord)
         {
+            using (SQLiteConnection conn = new SQLiteConnection(@"DataSource=C:\\Users\\SFWMD\\Aqua-Tech Hydro Services\\IT - Documents\\7.8 Databases\\CentralDB.db"))
+            {
+                if (conn == null)
+                {
+                    throw new Exception("Connection String is Null.");
+                }
 
+                SQLiteCommand query = new SQLiteCommand("deleteRecord", conn);
+                conn.Open();
+                query.CommandType = CommandType.StoredProcedure;
+                SQLiteParameter param1 = new SQLiteParameter("jobno", SqlDbType.VarChar);
+                param1.Value = quoteRecord.jobno;
+                query.Parameters.Add(param1);
+
+                query.ExecuteNonQuery();
+            }
         }
 
         public void deleteRecord(QuoteItem quoteRecord)
         {
+            using (SQLiteConnection conn = new SQLiteConnection(@"DataSource=C:\\Users\\SFWMD\\Aqua-Tech Hydro Services\\IT - Documents\\7.8 Databases\\CentralDB.db"))
+            {
+                if (conn == null)
+                {
+                    throw new Exception("Connection String is Null.");
+                }
 
+                SQLiteCommand query = new SQLiteCommand("deleteRecord", conn);
+                conn.Open();
+                query.CommandType = CommandType.StoredProcedure;
+                SQLiteParameter param1 = new SQLiteParameter("jobno", SqlDbType.VarChar);
+                param1.Value = quoteRecord.jobno;
+                query.Parameters.Add(param1);
+
+                query.ExecuteNonQuery();
+            }
         }
 
         public void updateRecord(QuoteHeader quoteRecord)
