@@ -62,7 +62,7 @@ namespace HydrotestCentral
         private void initializeItems()
         {
             /*
-            using (connection = new SQLiteConnection("DataSource=C:\\Users\\SFWMD\\Aqua-Tech Hydro Services\\IT - Documents\\7.8 Databases\\CentralDB.db"))
+            using (connection = new SQLiteConnection("DataSource=C:\\SQLite\\CentralDB.db"))
             {
                 connection.Open();
 

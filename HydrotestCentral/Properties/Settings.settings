@@ -3,7 +3,7 @@
   <Profiles />
   <Settings>
     <Setting Name="connString" Type="System.String" Scope="Application">
-      <Value Profile="(Default)">@"DataSource=C:\Users\SFWMD\Aqua-Tech Hydro Services\IT - Documents\7.8 Databases\CentralDB.db"</Value>
+      <Value Profile="(Default)">@"DataSource=C:\SQLite\CentralDB.db"</Value>
     </Setting>
   </Settings>
 </SettingsFile>

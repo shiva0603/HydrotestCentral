@@ -44,7 +44,7 @@ namespace HydrotestCentral.ViewModels
 
             try
             {
-                connection = new SQLiteConnection(@"DataSource=C:\\Users\\SFWMD\\Aqua-Tech Hydro Services\\IT - Documents\\7.8 Databases\\CentralDB.db");
+                connection = new SQLiteConnection(@"DataSource=C:\\SQLite\\CentralDB.db");
                 connection.Open();
                 cmd = connection.CreateCommand();
                 cmd.CommandText = string.Format("SELECT * FROM QTE_HDR");
@@ -110,7 +110,8 @@ namespace HydrotestCentral.ViewModels
 
             try
             {
-                connection = new SQLiteConnection(connectionString);
+                //Made changes
+                connection = new SQLiteConnection(@"DataSource=C:\\SQLite\\CentralDB.db");
                 connection.Open();
                 cmd = connection.CreateCommand();
                 cmd.CommandText = string.Format("SELECT * FROM QTE_ITEMS");
@@ -223,7 +224,11 @@ namespace HydrotestCentral.ViewModels
         public event PropertyChangedEventHandler PropertyChanged;
         private void OnPropertyChanged(string propertyName)
         {
-            PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
+            PropertyChangedEventHandler handle = PropertyChanged;
+            if(handle != null)
+            {
+                handle(this, new PropertyChangedEventArgs(propertyName));
+            }
         }
         #endregion
     }

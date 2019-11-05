@@ -15,7 +15,7 @@ using System.Windows.Shapes;
 using MahApps.Metro.Controls;
 using System.Data;
 using System.Data.SQLite;
-using Excel = Microsoft.Office.Interop.Excel;
+//using Excel = Microsoft.Office.Interop.Excel;
 using System.IO;
 using HydrotestCentral.ViewModels;
 using HydrotestCentral.Model;
@@ -143,6 +143,7 @@ namespace HydrotestCentral
                 //Change QItems based on Row
                 // OUTDATED ---GetQuoteItemsData(this.jobno);
                 main_vm.updateQuoteItemsByJob(this.jobno);
+       
 
                 // Update tab child
                 MessageBox.Show(this.tabDynamic.GetChildObjects().ToString());
@@ -375,7 +376,7 @@ namespace HydrotestCentral
 
         private void Btn_print_Click(object sender, RoutedEventArgs e)
         {
-            DataTable dt = new DataTable();
+           /* DataTable dt = new DataTable();
             int days_count = 0;
             int sheet_count = 0;
 
@@ -484,7 +485,7 @@ namespace HydrotestCentral
 
             excelApp.Quit();
             excelApp = null;
-            GC.Collect();
+            GC.Collect();*/
         }
 
         private void Btn_DeleteTab_Click(object sender, RoutedEventArgs e)

@@ -7,7 +7,9 @@
              xmlns:mah="http://metro.mahapps.com/winfx/xaml/controls" x:Class="HydrotestCentral.QuoteItemGrid"
              x:Name="QuoteItemGridControl"
              mc:Ignorable="d">
-    <DataGrid x:Name="QItems" ItemsSource="{Binding quote_items}" Margin="20" VerticalAlignment="Stretch" HorizontalAlignment="Stretch" IsManipulationEnabled="True" GridLinesVisibility="All" FontFamily="Verdana" SelectionMode="Single" ColumnWidth="150" ClipboardCopyMode="IncludeHeader" AutoGenerateColumns="False">
+    <DataGrid x:Name="QItems" ItemsSource="{Binding quote_items}" Margin="20" VerticalAlignment="Stretch" HorizontalAlignment="Stretch" IsManipulationEnabled="True" 
+              GridLinesVisibility="All" FontFamily="Verdana" SelectionMode="Single" ColumnWidth="150" 
+              ClipboardCopyMode="IncludeHeader" AutoGenerateColumns="False">
         <DataGrid.Columns>
             <DataGridTextColumn Header="qty" Binding="{Binding Path=qty}"/>
             <!--<local:DataGridComboBoxColumnWithBindingHack Header="Item" SelectedValueBinding="{Binding Items}" SelectedValuePath="Itemname" ItemsSource="{Binding Items}"/>-->

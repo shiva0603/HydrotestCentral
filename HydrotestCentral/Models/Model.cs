@@ -71,7 +71,7 @@ namespace HydrotestCentral.Model
         public QuoteHeaderDataProvider()
         {
             quoteheader_dt = new System.Data.DataTable(); 
-            connection = new SQLiteConnection("DataSource=C:\\Users\\SFWMD\\Aqua-Tech Hydro Services\\IT - Documents\\7.8 Databases\\CentralDB.db");
+            connection = new SQLiteConnection("DataSource=C:\\SQLite\\CentralDB.db");
             connection.Open();
             SQLiteCommand cmd = connection.CreateCommand();
             cmd.CommandText = string.Format("SELECT * FROM QTE_HDR");
@@ -90,7 +90,7 @@ namespace HydrotestCentral.Model
         public DataTable getQuoteHeaderTableByJob(string jobno)
         {
             DataTable specific_dt = new System.Data.DataTable();
-            connection = new SQLiteConnection("DataSource=C:\\Users\\SFWMD\\Aqua-Tech Hydro Services\\IT - Documents\\7.8 Databases\\CentralDB.db");
+            connection = new SQLiteConnection("DataSource=C:\\SQLite\\CentralDB.db");
             connection.Open();
             SQLiteCommand cmd = connection.CreateCommand();
             Console.WriteLine("Jobno: " + jobno);
@@ -130,7 +130,7 @@ namespace HydrotestCentral.Model
         public QuoteItemsDataProvider()
         {
             quoteitems_dt = new System.Data.DataTable();
-            connection = new SQLiteConnection("DataSource=C:\\Users\\SFWMD\\Aqua-Tech Hydro Services\\IT - Documents\\7.8 Databases\\CentralDB.db");
+            connection = new SQLiteConnection("DataSource=C:\\SQLite\\CentralDB.db");
             connection.Open();
             SQLiteCommand cmd = connection.CreateCommand();
             cmd.CommandText = string.Format("SELECT * FROM QTE_ITEMS");
@@ -253,7 +253,7 @@ namespace HydrotestCentral.Model
                 quoteitems_dt.Columns["line_total"].Expression = "qty*rate";
                 quoteitems_dt.Columns["tax_total"].Expression = "qty*rate*taxable";
                 // ... Is this redundant?
-                connection = new SQLiteConnection("DataSource=C:\\Users\\SFWMD\\Aqua-Tech Hydro Services\\IT - Documents\\7.8 Databases\\CentralDB.db");
+                connection = new SQLiteConnection("DataSource=C:\\SQLite\\CentralDB.db");
                 connection.Open();
                 cmd = connection.CreateCommand();
                 cmd.CommandText = string.Format("SELECT * FROM QTE_ITEMS");
@@ -272,7 +272,7 @@ namespace HydrotestCentral.Model
         {
             try
             {
-                connection = new SQLiteConnection("DataSource=C:\\Users\\SFWMD\\Aqua-Tech Hydro Services\\IT - Documents\\7.8 Databases\\CentralDB.db");
+                connection = new SQLiteConnection("DataSource=C:\\SQLite\\CentralDB.db");
                 connection.Open();
                 cmd = connection.CreateCommand();
                 cmd.CommandText = string.Format("UPDATE QTE_ITEMS SET item='{0}' WHERE jobno='{1}' AND tab_index='{2}' AND row_index='{3}'", item, jobno, tab_index, row_index);
