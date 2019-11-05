@@ -145,7 +145,8 @@ namespace HydrotestCentral
                 main_vm.updateQuoteItemsByJob(this.jobno);
 
                 // Update tab child
-                MessageBox.Show(this.tabDynamic.GetChildObjects().ToString());
+                //MessageBox.Show(this.tabDynamic.GetChildObjects().ToString());
+                getTabItemGrid((TabItem)tabDynamic.SelectedItem, tabDynamic.SelectedIndex);
             }
         }
 
