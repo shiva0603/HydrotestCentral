@@ -268,6 +268,7 @@ namespace HydrotestCentral
 
         public void deleteTabItemGrid(TabItem tab, int tab_index)
         {
+            main_vm.DeleteQuoteItem(jobno, tab_index);
             Console.WriteLine(string.Format("tab {0} deleted\n", tab_index + 1));
         }
 

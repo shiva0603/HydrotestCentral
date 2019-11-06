@@ -185,6 +185,28 @@ namespace HydrotestCentral.ViewModels
             return quote_items;
         }
 
+        public void DeleteQuoteItem(String jobno, int tab_index)
+        {
+            try
+            {
+                var start_collection = new ObservableCollection<QuoteItem>();
+                connection = new SQLiteConnection(@"DataSource=C:\\SQLite\\CentralDB.db");
+                connection.Open();
+                cmd = connection.CreateCommand();
+                cmd.CommandText = String.Format("DELETE FROM QTE_ITEMS WHERE jobno=\"{0}\" AND tab_index = {1}", jobno, tab_index);
+                cmd.ExecuteNonQuery();
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.ToString());
+            }
+            finally
+            {
+                connection.Close();
+                connection.Dispose();
+            }
+        }
+
         public void updateQuoteItemsByJob(string jobno)
         {
             //MessageBox.Show("updateQuoteItemsByJob called...");
